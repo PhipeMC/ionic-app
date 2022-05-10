@@ -1,5 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSlides, IonSlide } from '@ionic/react';
+import {
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItemDivider, IonItem, IonTextarea, IonLabel, IonCard,
+    IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle
+} from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
+import { useState } from 'react';
 import './Tab4.css';
 
 const slideOpts = {
@@ -8,6 +12,8 @@ const slideOpts = {
 };
 
 const Tab4: React.FC = () => {
+    const [text, setText] = useState<string>();
+
     return (
         <IonPage>
             <IonHeader>
@@ -17,17 +23,32 @@ const Tab4: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <IonContent>
-                    <IonSlides pager={true} options={slideOpts}>
-                        <IonSlide>
-                            <h1>Slide 1</h1>
-                        </IonSlide>
-                        <IonSlide>
-                            <h1>Slide 2</h1>
-                        </IonSlide>
-                        <IonSlide>
-                            <h1>Slide 3</h1>
-                        </IonSlide>
-                    </IonSlides>
+                    <IonCard>
+                        <IonCardHeader>
+                            <IonCardSubtitle>UI Component</IonCardSubtitle>
+                            <IonCardTitle>Toast component</IonCardTitle>
+                        </IonCardHeader>
+
+                        <IonCardContent>
+                            <IonItem>
+                                <IonLabel position="floating">Your own text</IonLabel>
+                                <IonTextarea></IonTextarea>
+                            </IonItem>
+                        </IonCardContent>
+                    </IonCard>
+                    <IonCard>
+                        <IonCardHeader>
+                            <IonCardSubtitle>UI Component</IonCardSubtitle>
+                            <IonCardTitle>Toast component</IonCardTitle>
+                        </IonCardHeader>
+
+                        <IonCardContent>
+                            <IonItem>
+                                <IonLabel position="floating">Your own text</IonLabel>
+                                <IonTextarea></IonTextarea>
+                            </IonItem>
+                        </IonCardContent>
+                    </IonCard>
                 </IonContent>
             </IonContent>
         </IonPage>
