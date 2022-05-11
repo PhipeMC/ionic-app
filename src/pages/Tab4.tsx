@@ -1,6 +1,6 @@
 import {
     IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItemDivider, IonItem, IonTextarea, IonLabel, IonCard,
-    IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle
+    IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton
 } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import { useState } from 'react';
@@ -12,8 +12,6 @@ const slideOpts = {
 };
 
 const Tab4: React.FC = () => {
-    const [text, setText] = useState<string>();
-
     return (
         <IonPage>
             <IonHeader>
@@ -31,22 +29,10 @@ const Tab4: React.FC = () => {
 
                         <IonCardContent>
                             <IonItem>
-                                <IonLabel position="floating">Your own text</IonLabel>
-                                <IonTextarea></IonTextarea>
+                                {/*<IonLabel position="floating">Text here!</IonLabel>*/}
+                                <IonTextarea disabled value="This text will be copied to the clipboard"></IonTextarea>
                             </IonItem>
-                        </IonCardContent>
-                    </IonCard>
-                    <IonCard>
-                        <IonCardHeader>
-                            <IonCardSubtitle>UI Component</IonCardSubtitle>
-                            <IonCardTitle>Toast component</IonCardTitle>
-                        </IonCardHeader>
-
-                        <IonCardContent>
-                            <IonItem>
-                                <IonLabel position="floating">Your own text</IonLabel>
-                                <IonTextarea></IonTextarea>
-                            </IonItem>
+                            <IonButton expand="block">Copy to clipboard</IonButton>
                         </IonCardContent>
                     </IonCard>
                 </IonContent>
