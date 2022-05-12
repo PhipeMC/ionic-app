@@ -1,22 +1,59 @@
-import { IonContent, IonHeader, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import {
+  IonContent, IonHeader, IonPage, IonButton, IonTitle, IonToolbar,
+  IonAlert, IonCardContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle
+} from '@ionic/react';
+import { Network } from '@capacitor/network';
 import './Tab1.css';
-import { networkStatusChange } from '../hooks/network';
+import { useState } from 'react';
 
 const Tab1: React.FC = () => {
-  const [data, logCurrentNetworkStatus] = networkStatusChange();
+  const [showAlert1, setShowAlert1] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [connectionType, setConnectionType] = useState("");
+
+  /*Network.addListener('networkStatusChange', function (val) {
+    status = val.connectionType;
+    console.log(val);
+  });*/
+  const logCurrentNetworkStatus = async () => {
+    const status = await Network.getStatus();
+
+    setConnected(status.connected);
+    setConnectionType(status.connectionType);
+    setShowAlert1(true);
+  };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Network</IonTitle>
+          <IonTitle>Network information</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonText>
-          {data}
-        </IonText>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardSubtitle>Plugin</IonCardSubtitle>
+            <IonCardTitle>Network Details</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonButton
+              onClick={() => {
+                logCurrentNetworkStatus();
+              }}
+              expand="block">
+              Show Info</IonButton>
+            <IonAlert
+              isOpen={showAlert1}
+              onDidDismiss={() => setShowAlert1(false)}
+              header={'Your network information is available'}
+              subHeader={''}
+              message={'Connected: ' + connected + ' Type: ' + connectionType.toUpperCase()}
+              buttons={['OK']}
+            />
+          </IonCardContent>
+        </IonCard>
+
       </IonContent>
     </IonPage>
   );

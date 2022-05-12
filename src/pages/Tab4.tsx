@@ -1,22 +1,36 @@
 import {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItemDivider, IonItem, IonTextarea, IonLabel, IonCard,
-    IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonTextarea, IonCard,
+    IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton, IonToast
 } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import { useState } from 'react';
+import { Clipboard } from '@capacitor/clipboard';
 import './Tab4.css';
-
-const slideOpts = {
-    initialSlide: 1,
-    speed: 400
-};
+import { useState } from 'react';
 
 const Tab4: React.FC = () => {
+
+    const [showToast1, setShowToast1] = useState(false);
+    const [text, setText] = useState("");
+
+    function writeToClipboard(idFunc: number){
+        if(idFunc === 0){
+            Clipboard.write({
+                string: "This text will be copied to the clipboard"
+            });
+            setShowToast1(true);
+            return;
+        }
+        
+        Clipboard.write({
+            string: text
+        });
+        setShowToast1(true);
+    };
+
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Tab 4</IonTitle>
+                    <IonTitle>Clipboard tool</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
@@ -24,16 +38,42 @@ const Tab4: React.FC = () => {
                     <IonCard>
                         <IonCardHeader>
                             <IonCardSubtitle>UI Component</IonCardSubtitle>
-                            <IonCardTitle>Toast component</IonCardTitle>
+                            <IonCardTitle>Static text</IonCardTitle>
                         </IonCardHeader>
-
                         <IonCardContent>
                             <IonItem>
-                                {/*<IonLabel position="floating">Text here!</IonLabel>*/}
                                 <IonTextarea disabled value="This text will be copied to the clipboard"></IonTextarea>
                             </IonItem>
-                            <IonButton expand="block">Copy to clipboard</IonButton>
+                            <IonButton expand="block" onClick={()=>{writeToClipboard(0)}}>Copy to clipboard</IonButton>
                         </IonCardContent>
+                        <IonToast
+                            isOpen={showToast1}
+                            onDidDismiss={() => setShowToast1(false)}
+                            message="Copied to clipboard"
+                            duration={2000}
+                        />
+                    </IonCard>
+                    <IonCard>
+                        <IonCardHeader>
+                            <IonCardSubtitle>UI Component</IonCardSubtitle>
+                            <IonCardTitle>Your own text</IonCardTitle>
+                        </IonCardHeader>
+                        <IonCardContent>
+                            <IonItem>
+                                <IonTextarea 
+                                placeholder="Put your text here" 
+                                value={text}
+                                onIonChange={(e: any) => setText(e.target.value)}
+                                ></IonTextarea>
+                            </IonItem>
+                            <IonButton expand="block" onClick={()=> {writeToClipboard(1)}}>Copy to clipboard</IonButton>
+                        </IonCardContent>
+                        <IonToast
+                            isOpen={showToast1}
+                            onDidDismiss={() => setShowToast1(false)}
+                            message="Copied to clipboard"
+                            duration={2000}
+                        />
                     </IonCard>
                 </IonContent>
             </IonContent>

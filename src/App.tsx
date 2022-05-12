@@ -10,9 +10,8 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { camera, clipboard, folderOpen, notifications, wifi } from 'ionicons/icons';
+import { camera, clipboard, notifications, wifi } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import Tab4 from './pages/Tab4';
 import Tab5 from './pages/Tab5';
@@ -47,9 +46,6 @@ const App: React.FC = () => (
           <Route exact path="/tab1">
             <Tab1 />
           </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
           <Route exact path="/tab3">
             <Tab3 />
           </Route>
@@ -67,10 +63,6 @@ const App: React.FC = () => (
           <IonTabButton tab="tab1" href="/tab1">
             <IonIcon icon={wifi} />
             <IonLabel>Network</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={folderOpen} />
-            <IonLabel>Files</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={camera} />
